@@ -1,0 +1,199 @@
+@import "tailwindcss";
+.glow-text {
+  text-shadow: 0 0 8px #A7C1A8, 0 0 16px #819A91;
+}
+@layer utilities {
+  .animate-flicker {
+    animation: flicker 1.5s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      opacity: 0.6;
+    }
+  }
+}
+
+/* Retro glow around image frame */
+.retro-frame {
+  box-shadow: 0 0 12px #819A91, 0 0 20px #A7C1A8;
+  border-radius: 1rem;
+}
+
+/* Image tint & retro filter */
+.retro-image {
+  filter: sepia(0.1) hue-rotate(-10deg);
+}
+
+/* CRT scanline overlay */
+.retro-scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  animation: scanlines 1.5s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 2px;
+  }
+}
+
+/* Terminal Glitch Heading */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+}
+.glitch::before {
+  animation: glitchTop 2s infinite linear;
+  color: #A7C1A8;
+  z-index: -1;
+}
+.glitch::after {
+  animation: glitchBottom 3s infinite linear;
+  color: #D1D8BE;
+  z-index: -2;
+}
+
+@keyframes glitchTop {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(0, 9999px, 100%, 0); transform: translate(-2px, -2px); }
+  20% { clip: rect(0, 9999px, 0, 0); }
+  40% { clip: rect(0, 9999px, 85%, 0); transform: translate(2px, 1px); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+@keyframes glitchBottom {
+  0% { clip: rect(100%, 9999px, 100%, 0); }
+  15% { clip: rect(60%, 9999px, 100%, 0); transform: translate(1px, 2px); }
+  30% { clip: rect(90%, 9999px, 100%, 0); transform: translate(-1px, -1px); }
+  100% { clip: rect(100%, 9999px, 100%, 0); }
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .glitch-text {
+    @apply relative text-[#A7C1A8];
+    text-shadow: 1px 0 #819A91, -1px 0 #EEEFE0;
+    animation: glitchText 2.5s infinite linear alternate-reverse;
+  }
+
+  .glitch-box {
+    animation: jitterBox 1.8s infinite ease-in-out;
+  }
+
+  .scanlines {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(129, 154, 145, 0.03),
+      rgba(129, 154, 145, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  .grid-pattern {
+    background-image: linear-gradient(to right, #819a91 1px, transparent 1px),
+      linear-gradient(to top, #819a91 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  @keyframes glitchText {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(-1px, 1px) skew(-2deg); }
+    40% { transform: translate(1px, -1px) skew(2deg); }
+    60% { transform: translate(-2px, 1px) skew(-1deg); }
+    80% { transform: translate(1px, 2px) skew(1deg); }
+  }
+
+  @keyframes jitterBox {
+    0%, 100% { transform: none; }
+    25% { transform: skewX(1deg); }
+    50% { transform: translateX(1px); }
+    75% { transform: skewX(-1deg); }
+  }
+}
+
+/* === Retro Effects === */
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.95;
+  }
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: scanlines 12s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+.grain {
+  background-image: url('/grain.png'); /* Add a transparent noise image in /public */
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
