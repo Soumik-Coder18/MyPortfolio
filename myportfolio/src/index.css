@@ -197,3 +197,18 @@ html {
   pointer-events: none;
 }
 
+@layer utilities {
+  @keyframes flicker {
+    0% { opacity: 1; }
+    5% { opacity: 0.6; }
+    10% { opacity: 1; }
+    15% { opacity: 0.5; }
+    20% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+  .animate-flicker {
+    animation: flicker 2s infinite;
+  }
+}
+
+

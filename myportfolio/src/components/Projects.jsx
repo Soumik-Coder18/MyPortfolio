@@ -1,12 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import CalImg from '../assets/calculatorApp.png';
+import ColImg from '../assets/colorChanger.png';
+import CurrImg from '../assets/CurrencyConv.png';
+import AgroConnect from '../assets/AgroConnect.jpeg';
 
 const majorProjects = [
   {
-    title: 'Direct Farmer to Customer',
+    title: 'Direct Farmer to Customer mobile app',
     description: 'A full-stack platform connecting farmers directly with consumers to ensure fair trade and fresh produce.',
-    image: '/images/farmer-app.jpg',
-    demo: 'https://your-demo-link.com/farmer-app',
+    image: AgroConnect,
+    demo: 'https://agro-connectt.vercel.app/',
     github: 'https://github.com/SobhanBose/AgroConnect'
   },
   {
@@ -18,7 +22,7 @@ const majorProjects = [
   },
   {
     title: 'OTT Platform',
-    description: 'A retro-themed OTT streaming service UI for discovering and watching curated content.',
+    description: 'A OTT streaming service UI for discovering and watching curated content.',
     image: '/images/ott-platform.jpg',
     demo: 'https://your-demo-link.com/ott-platform',
     github: 'https://github.com/your-username/ott-platform'
@@ -28,22 +32,22 @@ const majorProjects = [
 const basicProjects = [
   {
     title: 'Calculator App',
-    description: 'A retro digital calculator with clean logic and design.',
-    image: '/images/calculator.jpg',
+    description: 'A digital calculator with clean logic and design.',
+    image: CalImg,
     demo: 'https://calculator-5pq.pages.dev/',
     github: 'https://github.com/Soumik-Coder18/React-Small-Projects/tree/main/Calculator'
   },
   {
     title: 'Color Changer',
     description: 'An interactive color flipper that cycles through vibrant hues with one click.',
-    image: '/images/color-changer.jpg',
+    image: ColImg,
     demo: 'https://bgcolorchanger.pages.dev/',
     github: 'https://github.com/Soumik-Coder18/React-Small-Projects/tree/main/BgColorChanger'
   },
   {
     title: 'Currency Converter',
-    description: 'Real-time currency conversion tool with retro-inspired UI.',
-    image: '/images/currency-converter.jpg',
+    description: 'Real-time currency conversion tool with UI.',
+    image: CurrImg,
     demo: 'https://currencyconverter-a5c.pages.dev/',
     github: 'https://github.com/Soumik-Coder18/React-Small-Projects/tree/main/CurrencyConverter'
   },

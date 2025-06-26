@@ -1,125 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaInstagram,
-  FaEnvelope,
-  FaFacebook,
-} from 'react-icons/fa';
 import { Typewriter } from 'react-simple-typewriter';
-import axios from 'axios';
+import emailjs from 'emailjs-com';
 
-// SheetDB API endpoint
-const SHEETDB_API = 'https://sheetdb.io/api/v1/bkibdh4n1tole';
-
-// Tic Tac Toe Helpers
-const initialBoard = Array(9).fill(null);
-const getEmptyIndices = (board) =>
-  board.map((val, i) => (val === null ? i : null)).filter((v) => v !== null);
-const calculateWinner = (squares) => {
-  const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6],
-  ];
-  for (const [a, b, c] of lines) {
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-};
-
-// Tic Tac Toe Component
-const Square = ({ value, onClick }) => (
-  <button
-    onClick={onClick}
-    className="w-16 h-16 md:w-20 md:h-20 text-3xl font-bold text-[#A7C1A8] border border-[#819A91] bg-[#0f0f0f] hover:bg-[#1a1a1a] transition rounded-md shadow-md"
-  >
-    {value}
-  </button>
-);
-
-const TicTacToe = () => {
-  const [board, setBoard] = useState(initialBoard);
-  const [isPlayerTurn, setIsPlayerTurn] = useState(true);
-  const winner = calculateWinner(board);
-
-  const handleClick = (index) => {
-    if (!isPlayerTurn || board[index] || winner) return;
-
-    const newBoard = [...board];
-    newBoard[index] = 'X';
-    setBoard(newBoard);
-    setIsPlayerTurn(false);
-  };
-
-  useEffect(() => {
-    if (!isPlayerTurn && !winner && board.includes(null)) {
-      const timeout = setTimeout(() => {
-        const empty = getEmptyIndices(board);
-        const randIndex = empty[Math.floor(Math.random() * empty.length)];
-        const newBoard = [...board];
-        newBoard[randIndex] = 'O';
-        setBoard(newBoard);
-        setIsPlayerTurn(true);
-      }, 500);
-      return () => clearTimeout(timeout);
-    }
-  }, [isPlayerTurn, board, winner]);
-
-  const handleReset = () => {
-    setBoard(initialBoard);
-    setIsPlayerTurn(true);
-  };
-
-  return (
-    <div className="flex flex-col items-center space-y-4 text-[#EEEFE0]">
-      <h3 className="text-xl font-bold text-[#A7C1A8]">Tic Tac Toe: You vs CPU</h3>
-      <div className="grid grid-cols-3 gap-2">
-        {board.map((val, idx) => (
-          <Square key={idx} value={val} onClick={() => handleClick(idx)} />
-        ))}
-      </div>
-      <p className="mt-2 text-sm text-[#A7C1A8]">
-        {winner
-          ? `🎉 ${winner === 'X' ? 'You Win!' : 'CPU Wins!'}`
-          : board.every(Boolean)
-          ? '😐 Draw!'
-          : isPlayerTurn
-          ? 'Your Turn'
-          : 'CPU Thinking...'}
-      </p>
-      <button
-        onClick={handleReset}
-        className="px-4 py-2 mt-2 bg-[#A7C1A8] text-black font-semibold rounded hover:bg-[#CFE2D3] transition"
-      >
-        Reset Game
-      </button>
-    </div>
-  );
-};
+// Access keys from .env
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post(SHEETDB_API, {
-        data: formData,
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
+      .then(() => {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch((error) => {
+        console.error('Email sending failed:', error);
       });
-      setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error('Submission failed', error);
-    }
   };
 
   return (
@@ -127,7 +42,7 @@ const Contact = () => {
       id="contact"
       className="relative w-full min-h-screen px-6 md:px-16 py-20 text-[#A7C1A8] font-mono bg-gradient-to-br from-[#0f0f0f] to-black overflow-hidden"
     >
-      {/* Retro Background */}
+      {/* Background Effects */}
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,#1f1f1f_0%,#0f0f0f_100%)] opacity-70" />
       <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/grid.svg')] opacity-[0.04] mix-blend-soft-light" />
 
@@ -142,17 +57,41 @@ const Contact = () => {
         </h2>
 
         <div className="flex flex-col md:flex-row gap-12">
-          {/* Left: Game */}
+          {/* Left Panel */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="md:w-1/2 border border-[#819A91] bg-[#0f0f0f] rounded-xl p-6 shadow-[0_0_40px_#819A91]/10"
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="md:w-1/2 text-[#A7C1A8] font-mono flex flex-col justify-center"
           >
-            <TicTacToe />
+            <div className="text-[15px] sm:text-base leading-relaxed tracking-wider">
+              <div className="mb-4 text-[#CFF3E8] text-xl font-semibold sm:text-2xl uppercase animate-pulse">
+                ✒︎ Incoming Transmission
+              </div>
+
+              <div className="space-y-3 text-[#EEEFE0]/90">
+                <p><span className="text-[#A7C1A8]">[Briefing]</span> Establishing secure link...</p>
+                <p><span className="text-[#A7C1A8]">[Status]</span> Signal lock acquired. Message relay online.</p>
+                <p><span className="text-[#A7C1A8]">[Objective]</span> Seeking meaningful connections. Collaboration, creation, or curiosity — all signals welcome.</p>
+                <p><span className="text-[#A7C1A8]">[Instructions]</span> Use the form on the right. Be direct. Be bold. This channel is always listening.</p>
+              </div>
+
+              <div className="mt-8 text-xs text-[#819A91]/70 tracking-widest uppercase flex items-center gap-3">
+                <span>Transmitting</span>
+                <div className="flex gap-1">
+                  <span className="w-1.5 h-1.5 bg-[#A7C1A8] rounded-full animate-ping" />
+                  <span className="w-1.5 h-1.5 bg-[#A7C1A8] rounded-full animate-pulse delay-100" />
+                  <span className="w-1.5 h-1.5 bg-[#A7C1A8] rounded-full animate-pulse delay-200" />
+                </div>
+              </div>
+
+              <div className="mt-4 text-xs text-[#A7C1A8]/40 uppercase border-t border-[#A7C1A8]/20 pt-3 tracking-widest">
+                Signal Time — {time}
+              </div>
+            </div>
           </motion.div>
 
-          {/* Right: Contact Form */}
+          {/* Right Panel (Form) */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
