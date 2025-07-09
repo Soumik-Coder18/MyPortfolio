@@ -8,10 +8,12 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import GameWidget from './components/GameWidget';
+import Cursor from './Cursor';
 
 const App = () => {
   return (
-    <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+    <div className="bg-black text-[#CFF3E8] font-mono relative overflow-x-hidden">
+      <Cursor />
       <Header />
       <main>
         <Hero />
