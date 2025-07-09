@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import CalImg from '../assets/calculatorApp.png';
-import ColImg from '../assets/colorChanger.png';
+import CalImg from '../assets/CalculatorApp.png';
+import ColImg from '../assets/ColorChanger.png';
 import CurrImg from '../assets/CurrencyConv.png';
 import AgroConnect from '../assets/AgroConnect.jpeg';
 import MyOTT from '../assets/myOTT.png';
