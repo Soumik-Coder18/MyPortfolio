@@ -4,6 +4,8 @@ import CalImg from '../assets/calculatorApp.png';
 import ColImg from '../assets/colorChanger.png';
 import CurrImg from '../assets/CurrencyConv.png';
 import AgroConnect from '../assets/AgroConnect.jpeg';
+import MyOTT from '../assets/myOTT.png';
+import Event from '../assets/Event.png';
 
 const majorProjects = [
   {
@@ -16,15 +18,15 @@ const majorProjects = [
   {
     title: 'Event Management Platform',
     description: 'Organize, host, and manage events with seamless RSVP, scheduling, and notifications.',
-    image: '/images/event-management.jpg',
-    demo: 'https://your-demo-link.com/event-app',
+    image: Event,
+    demo: '',
     github: 'https://github.com/subhradeep09/Divertion-1.0'
   },
   {
     title: 'OTT Platform',
     description: 'A OTT streaming service UI for discovering and watching curated content.',
-    image: '/images/ott-platform.jpg',
-    demo: 'https://your-demo-link.com/ott-platform',
+    image: MyOTT,
+    demo: '',
     github: 'https://github.com/your-username/ott-platform'
   },
 ];
@@ -81,14 +83,18 @@ const ProjectCard = ({ project }) => (
       <h3 className="text-xl font-bold text-[#A7C1A8]">{project.title}</h3>
       <p className="text-sm text-[#D1D8BE]">{project.description}</p>
       <div className="flex justify-between pt-2">
-        <a
-          href={project.demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#819A91] hover:text-[#A7C1A8] underline"
-        >
-          Live Demo
-        </a>
+        {project.demo !== '' ? (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#819A91] hover:text-[#A7C1A8] underline"
+          >
+            Live Demo
+          </a>
+        ) : (
+          <span className="text-[#819A91] opacity-50 cursor-not-allowed">Live Demo</span>
+        )}
         <a
           href={project.github}
           target="_blank"

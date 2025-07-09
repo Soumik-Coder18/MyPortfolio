@@ -82,7 +82,7 @@ const Hero = () => {
               1500,
               'Creative Technologist',
               1500,
-              'World Explorer',
+              'Team Project Collaborator',
               1500,
               'Problem Solver (C++)',
               1500,

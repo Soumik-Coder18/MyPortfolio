@@ -5,7 +5,7 @@ const educationData = [
   { title: 'Primary School', institute: 'Domjur Margaret School', year: '2012' },
   { title: 'Secondary', institute: 'Uttar Jhapordah Sri Siksha Niketan', year: '2020', result: '92%' },
   { title: 'Higher Secondary', institute: 'Jhapordah Duke Institution', year: '2022', result: '91.6%' },
-  { title: 'B.Tech IT', institute: 'Techno Main Saltlake', year: '2026 (expected)' },
+  { title: 'B.Tech IT', institute: 'Techno Main Saltlake', year: '2026 (expected)', result: '7.67(6th sem)' },
 ];
 
 const CircularCarousel = () => {
@@ -36,7 +36,9 @@ const CircularCarousel = () => {
     : [getCircularIndex(-1), getCircularIndex(0), getCircularIndex(1)];
 
   return (
-    <section className="min-h-screen w-full bg-[#121010] text-white flex flex-col items-center justify-center relative px-4 sm:px-6 overflow-hidden font-display">
+    <section
+    id="education"
+    className="min-h-screen w-full bg-[#121010] text-white flex flex-col items-center justify-center relative px-4 sm:px-6 overflow-hidden font-display">
       <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#CFF3E8] neon-glow mb-20 z-10 text-center">
         🪐 My Education Journey
       </h2>
