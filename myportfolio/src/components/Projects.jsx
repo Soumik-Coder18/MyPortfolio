@@ -24,7 +24,7 @@ const majorProjects = [
   },
   {
     title: 'OTT Platform',
-    description: 'A OTT streaming service UI for discovering and watching curated content.',
+    description: 'A sleek OTT platform to explore, favorite, and interact with curated movies and shows.',
     image: MyOTT,
     demo: '',
     github: 'https://github.com/your-username/ott-platform'
