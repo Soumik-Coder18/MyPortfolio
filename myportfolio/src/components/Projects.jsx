@@ -9,7 +9,7 @@ import Event from '../assets/Event.png';
 
 const majorProjects = [
   {
-    title: 'Direct Farmer to Customer mobile app',
+    title: 'AgroConnect',
     description: 'A full-stack platform connecting farmers directly with consumers to ensure fair trade and fresh produce.',
     image: AgroConnect,
     demo: 'https://agro-connectt.vercel.app/',
@@ -23,10 +23,10 @@ const majorProjects = [
     github: 'https://github.com/subhradeep09/Divertion-1.0'
   },
   {
-    title: 'OTT Platform',
+    title: 'WhisperFrame',
     description: 'A sleek OTT platform to explore, favorite, and interact with curated movies and shows.',
     image: MyOTT,
-    demo: '',
+    demo: 'https://whisperframeott.vercel.app/',
     github: 'https://github.com/your-username/ott-platform'
   },
 ];

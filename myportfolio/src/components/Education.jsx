@@ -40,7 +40,7 @@ const CircularCarousel = () => {
     id="education"
     className="min-h-screen w-full bg-[#121010] text-white flex flex-col items-center justify-center relative px-4 sm:px-6 overflow-hidden font-display">
       <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#CFF3E8] neon-glow mb-20 z-10 text-center">
-        🪐 My Education Journey
+        My Education Journey
       </h2>
 
       <div className="flex items-center justify-center relative w-full max-w-7xl min-h-[320px]">
